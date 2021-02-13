@@ -3,9 +3,9 @@ A method to scale Viber's GUI under Linux and Windows
 
 ## Introduction
 
-If you are like me, using [(Viber](https://www.viber.com/) to communicate with friends and colleagues, you may find it hard sometimes to read those tiny tiny letters it displays. In my case, it's because of my age :wink:, your case may be that you are on a high-DPI device, or whatever.
+If you are like me, using [Viber](https://www.viber.com/) to communicate with friends and colleagues, you may find it hard sometimes to read those tiny tiny letters it displays. In my case, it's because of my age :wink:, your case may be that you are on a high-DPI device, or whatever.
 
-The thing is that [(Viber](https://www.viber.com/) lacks the feature of adjusting its font size.
+The thing is that [Viber](https://www.viber.com/) lacks the feature of adjusting its font size.
 
 Now, under **Linux** it's common knowledge that you can "fix" it using a parameter. But then you have to keep doing it with every installation, every update even.
 
