@@ -69,6 +69,10 @@ If you do, though, you will end up with something like this:
 
 ![QT_SCALE_FACTOR.jpg](QT_SCALE_FACTOR.jpg?raw=True "")
 
+The nice thing about adding a "User Environment Variable" on **Windows 10**, is that you don't even have to log-off or restart for the change to take effect.
+
+If you are still using **Window 7**, you will have to add a "**System Environment Variable**" and restart to see the result.
+
 ## Aknowledgment
 
 I would like to thak my friend and colleague John for helping, testing and chatting about this issue.
