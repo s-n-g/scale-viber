@@ -1,0 +1,247 @@
+#!/bin/bash
+#    scale-viber, (C) Spiros Georgaras <sng@hellug.gr>, 2020
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#    
+#    Last modified: 13/02/2021 18:10:08 +0200
+#
+
+function print_help(){
+echo "Utility to scale Viber GUI under Linux
+(C) Spiros Georgaras <sng@hellug.gr>, 2021
+"
+print_usage
+}
+
+function print_usage(){
+echo "Usage: $(basename "$0") [OPTIONS] [Scale Factor]
+
+Options are:
+    -d  DESK
+        Location of Viber's Desktop file
+        Default: /usr/share/applications/viber.desktop
+    -p  PATH
+        Path of Viber's executable
+        Default: /opt/viber/Viber
+    -s  [SCRIPT PATH]
+        Create a bash script to execute Viber.
+        If [SCRIPT PATH] is not specified, use the default one.
+        Default: /usr/local/bin/Viver
+    -r  Restore Original Viber's Desktop file
+    -h  Print this help and exit
+
+If [Scale Factor] is not specified, 1.2 is used
+"
+}
+
+function desktop_file_error(){
+local MSG
+MSG="${1:-Viber Desktop file not found}"
+echo "not found"
+display_error "$MSG" "-d"
+}
+
+function exec_file_error(){
+local MSG
+MSG="${1:-Viber Executable file not found}"
+echo "not found"
+display_error "$MSG" "-p"
+}
+
+function display_error(){
+echo
+echo '============================================================================'
+print_usage
+echo '============================================================================'
+echo "ERROR: $1"
+echo "       Please use parameter $2 to specify its path"
+echo
+exit 1
+}
+
+function getDesktopFile(){
+# Find Desktop file
+echo -ne "Looking for Viber Desktop file ... "
+if [ -z "$DESK" ];then
+    if [ -e /usr/share/applications/viber.desktop ];then
+        DESK=/usr/share/applications/viber.desktop
+    else
+        desktop_file_error
+    fi
+else
+    [ -e "$DESK" ] || desktop_file_error
+fi
+echo "found
+    File: \"$DESK\""
+}
+
+function getExecFromDesktopFile(){
+local BCK
+local DEF
+DDEF=/usr/share/applications/viber.desktop
+DEF=${DESK:-$DDEF}
+
+[ -e ${DEF}.bck ] && BCK=${DEF}.bck
+[ -z "$BCK" ] && [ -e ${DEF} ] && BCK=${DEF}
+[ -z "$BCK" ] || readExecLine "$BCK"
+
+# If I still have no Exec, try the default desktop file
+[ -z "$VIBER_COMMAND" ] && [ "$DEF" = "$DDEF" ] || readExecLine "$DDEF"
+}
+
+function readExecLine(){
+# Try to read Exec line from a desktop file
+# and extract the command to be executed
+#
+# If succesfull, set VIBER_COMMAND
+#
+# The desktop file is passed as $1
+#
+local ELINE
+ELINE=$(grep 'Exec=' "$1")
+ELINE=${ELINE#Exec=}
+ELINE=${ELINE% *}
+ELINE=${ELINE##* }
+ELINE=${ELINE/\"/}
+[ -z "$ELINE" ] || VIBER_COMMAND="$ELINE"
+}
+
+function getExecutable(){
+echo -ne "Looking for Viber executable ... "
+if [ -z "$VIBER_COMMAND" ];then
+    # Not set by -d, get default
+    getExecFromDesktopFile
+else
+    # Set by -d, check it
+    [ -x "$VIBER_COMMAND" ] || exec_file_error
+fi
+
+[ -z "$VIBER_COMMAND" ] && {
+    # Not set by -d, default is invalid
+    # Try which...
+    V1=$(which viber)
+    V2=$(which Viber)
+    [ -z "$V1" ] || VIBER_COMMAND="$V1"
+    [ -z "$V2" ] || VIBER_COMMAND="$V2"
+    [ -z "$VIBER_COMMAND" ] && exec_file_error
+}
+echo "found
+    File: \"$VIBER_COMMAND\""
+}
+
+SCALE="1.2"
+while [ ! -z "$1" ];do
+    case "$1" in
+        -h)
+            print_help
+            exit
+            ;;
+        -d)
+            shift
+            DESK="$1"
+            shift
+            ;;
+        -p)
+            shift
+            VIBER_COMMAND="$1"
+            shift
+            ;;
+        -s)
+            shift
+            SCRIPT="$1"
+            if [[ "$SCRIPT" == /* ]];then
+                shift
+            else
+                SCRIPT=/usr/local/bin/Viber
+            fi
+            ;;
+        -r)
+            RESTORE=1
+            shift
+            ;;
+        *)
+            SCALE="$1"
+            shift
+            ;;
+    esac
+done
+
+# check if I am root
+if [ $(id -u) != "0" ];then
+    echo "ERROR: You must be root to execute this script"
+    echo
+    exit  1
+fi
+
+[ -z "$SCRIPT" ] || {
+    touch "$SCRIPT" 2>/dev/null || {
+        echo "ERROR: Script path is invalid: \"$SCRIPT\""
+        echo
+        rm "$SCRIPT" 2>/dev/null
+        exit 1
+    }
+}
+
+getDesktopFile
+
+[ -z "$RESTORE" ] || {
+echo -ne "Looking for backup Desktop file ... "
+[ -e "$DESK".bck ] && {
+echo "found
+    File: \"$DESK.bck\""
+echo -ne "Restoring original Desktop file ... "
+mv "$DESK".bck "$DESK" && echo "done" || echo "failed"
+} || echo "not found"
+echo
+exit
+}
+
+getExecutable
+
+# Create sctipt
+if [ "$SCRIPT" = "$VIBER_COMMAND" ];then
+    echo '============================================================================'
+    print_usafe
+    echo '============================================================================'
+    echo "ERROR: The script's path is the same as the executable's path"
+    echo "       Please specify a different script path"
+    echo
+    exit 1
+fi
+
+# Cahnge Desktop file
+[ -e "$DESK".bck ] || {
+echo -ne "Creating backup of Desktop file ... "
+cp "$DESK" "$DESK".bck
+echo "done"
+}
+echo -ne "Changing Desktop file ... "
+sed "$DESK" -i -e '/Exec=/d'
+echo "Exec=bash -c \"QT_SCALE_FACTOR=${SCALE} ${VIBER_COMMAND}\" %u" >> "$DESK"
+echo "done"
+echo "Desktop file scale factor set to: $SCALE"
+
+
+# create script
+if [ ! -z "$SCRIPT" ];then
+    echo -ne "Creating script ... "
+    echo "#!/bin/bash" > "$SCRIPT"
+    echo "bash -c \"QT_SCALE_FACTOR=${SCALE} ${VIBER_COMMAND}\" %u " >> "$SCRIPT"
+    chmod 777 "$SCRIPT"
+    echo "done"
+    echo "Script saved with scale factor: $SCALE"
+    echo "    \"$SCRIPT\""
+    exit
+fi
+echo
