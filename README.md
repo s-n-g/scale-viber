@@ -51,13 +51,17 @@ If [Scale Factor] is not specified, 1.2 is used
 
 On **Windows** you can use the BATCH file called ```ScaleViber.bat```, which will set the scaling parameter and execute Viber.
 
-One way to do it is download the [BATCH file](https://raw.githubusercontent.com/s-n-g/scale-viber/master/ScaleViber.bat) straight on your Desktop and use it to start Viber by double-clicking on it.
+The default scaling factor is set to 1.2, which will probably be ok for most of the cases.
 
-I would recomend to save the string in Viber's folder and then create a shortcut on the Desktop. This way you can change the icon, etc.
+If you need to change it, just **edit** the BATCH file and **change the value on line 2** to the desired one.
+
+So, you can just download the [BATCH file](https://raw.githubusercontent.com/s-n-g/scale-viber/master/ScaleViber.bat) straight on your Desktop and use it to start Viber by double-clicking on it.
+
+I would recomend though, to save the BATCH file in Viber's folder and then create a shortcut on the Desktop. This way you can change the icon, etc.
 
 #### Scaling all QT applications
 
-If you want to have all QT applications scaling the same way, you can just create a new "User Environment Variable", name is **QT_SCALE_FACTOR" and give it the value of the scaling factor that works for you.
+If you want to have all QT applications scaling the same way, you can just create a new "**User Environment Variable**", name is "**QT_SCALE_FACTOR**" and give it the value of the scaling factor that works for you.
 
 You can easily find instructions on the internet on how to do that, so I will not go into it.
 
