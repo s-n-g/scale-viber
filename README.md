@@ -13,7 +13,7 @@ On **Windows**, I have never tried... I just took it for granted that I will hav
 
 While playing with it, me and a friend, the other day, we discovered that the same method can be used on **Windows** as on **Linux** to "fix" this problem.
 
-So this repo is the result of my efforts.
+So this repo is the result our my efforts.
 
 Try it, and use it if you find it useful and it works for you... Hey, whatever works!
 
