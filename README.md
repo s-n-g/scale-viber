@@ -9,7 +9,9 @@ The thing is that [Viber](https://www.viber.com/) lacks the feature of adjusting
 
 Now, under **Linux** it's common knowledge that you can "fix" this using a parameter. But then you have to keep doing it with every installation, every update even.
 
-On **Windows**, I have never tried... I just took it for granted that I will have to keep torturing myself trying to read what people are writing to me :cry:. While playing with it, me and a friend, the other day, we discovered that the same method can be used on **Windows** as on **Linux** to "fix" this problem.
+On **Windows**, I have never tried... I just took it for granted that I will have to keep torturing myself trying to read what people are writing to me :cry:. 
+
+While playing with it, me and a friend, the other day, we discovered that the same method can be used on **Windows** as on **Linux** to "fix" this problem.
 
 So this repo is the result of my efforts.
 
