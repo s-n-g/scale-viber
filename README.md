@@ -65,6 +65,10 @@ If you want to have all QT applications scaling the same way, you can just creat
 
 You can easily find instructions on the internet on how to do that, so I will not go into it.
 
+If you do, though, you will end up with something like this:
+
+![QT_SCALE_FACTOR.jpg](QT_SCALE_FACTOR.jpg?raw=True "")
+
 ## Aknowledgment
 
 I would like to thak my friend and colleague John for helping, testing and chatting about this issue.
