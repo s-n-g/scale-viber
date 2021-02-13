@@ -7,9 +7,9 @@ If you are like me, using [Viber](https://www.viber.com/) to communicate with fr
 
 The thing is that [Viber](https://www.viber.com/) lacks the feature of adjusting its font size.
 
-Now, under **Linux** it's common knowledge that you can "fix" it using a parameter. But then you have to keep doing it with every installation, every update even.
+Now, under **Linux** it's common knowledge that you can "fix" this using a parameter. But then you have to keep doing it with every installation, every update even.
 
-On **Windows**, I have never tried... I just took it for granted that I will have to keep torturing myself trying to read what people are writing to me :cry:. While playing with it, I have recently discovered that the same method can be used on **Windows** as on **Linux** to "fix" my problem.
+On **Windows**, I have never tried... I just took it for granted that I will have to keep torturing myself trying to read what people are writing to me :cry:. While playing with it, me and a fried, the other day, we discovered that the same method can be used on **Windows** as on **Linux** to "fix" this problem.
 
 So this repo is the result of my efforts.
 
