@@ -24,7 +24,7 @@ On **Linux** you can just use the script named ```scale-viber```, which  will ed
 
 
 ```
-$ scqale-viber -h
+$ scale-viber -h
 
 Utility to scale Viber GUI under Linux
 (C) Spiros Georgaras <sng@hellug.gr>, 2021
