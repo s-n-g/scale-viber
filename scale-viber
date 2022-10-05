@@ -13,8 +13,8 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#    
-#    Last modified: 13/02/2021 18:10:08 +0200
+#
+#    Last modified:  5/10/2022 17:13:58 +0300
 #
 
 function print_help(){
@@ -228,7 +228,7 @@ echo "done"
 }
 echo -ne "Changing Desktop file ... "
 sed "$DESK" -i -e '/Exec=/d'
-echo "Exec=bash -c \"QT_SCALE_FACTOR=${SCALE} ${VIBER_COMMAND}\" %u" >> "$DESK"
+echo "Exec=bash -c \"QT_SCREEN_SCALE_FACTORS=${SCALE} ${VIBER_COMMAND}\" %u" >> "$DESK"
 echo "done"
 echo "Desktop file scale factor set to: $SCALE"
 
@@ -237,7 +237,7 @@ echo "Desktop file scale factor set to: $SCALE"
 if [ ! -z "$SCRIPT" ];then
     echo -ne "Creating script ... "
     echo "#!/bin/bash" > "$SCRIPT"
-    echo "bash -c \"QT_SCALE_FACTOR=${SCALE} ${VIBER_COMMAND}\" %u " >> "$SCRIPT"
+    echo "bash -c \"QT_SCREEN_SCALE_FACTORS=${SCALE} ${VIBER_COMMAND}\" %u " >> "$SCRIPT"
     chmod 777 "$SCRIPT"
     echo "done"
     echo "Script saved with scale factor: $SCALE"

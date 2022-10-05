@@ -1,5 +1,5 @@
 REM Change this value to get the scaling you want
-set QT_SCALE_FACTOR=1.2
+set QT_SCREEN_SCALE_FACTORS=1.2
 
 
 REM
